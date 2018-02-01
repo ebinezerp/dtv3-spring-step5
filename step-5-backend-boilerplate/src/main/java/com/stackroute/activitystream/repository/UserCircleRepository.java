@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.stackroute.activitystream.model.UserCircle;
 
@@ -31,8 +32,8 @@ public interface UserCircleRepository extends CrudRepository<UserCircle, Integer
 	* Write a query to get user circle object object from Database useing username and circlename.
 	* 
 	* */
-	@Query
-	UserCircle getUsernameAndCircleName(@Param("username") String username, @Param("circleName") String circleName);
+	/*@Query
+	UserCircle getUsernameAndCircleName(@Param("username") String username, @Param("circleName") String circleName);*/
 	
 	/*
 	* This method will retrieve an circleName from UserCircle table which is matching
@@ -42,8 +43,8 @@ public interface UserCircleRepository extends CrudRepository<UserCircle, Integer
 	* Write a query to retrive circle name from usercircle matching with username
 	*
 	* */
-	@Query
-	List<String> findCircleNameByUserName(@Param("username") String username);
+	/*@Query
+	List<String> findCircleNameByUserName(@Param("username") String username);*/
 	
 
 }

@@ -1,8 +1,11 @@
 package com.stackroute.activitystream.repository;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
 import com.stackroute.activitystream.model.Message;
 import com.stackroute.activitystream.model.UserTag;
 
@@ -30,8 +33,8 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* 
 	* Write a query to retrieve all messages from database posted on specific circle.
 	* */
-	@Query
-	public List<Message> getMessagesFromCircle(@Param("circleName") String circleName);
+	/*@Query
+	public List<Message> getMessagesFromCircle(@Param("circleName") String circleName);*/
 	
 	
 	/*
@@ -41,22 +44,22 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* 
 	* Write a query to retrieve all messages from the database send between two specified users. 
 	* */
-	@Query
-	public List<Message> getMessagesFromUser(@Param("username") String username, @Param("otherUsername") String otherUsername);
+	/*@Query
+	public List<Message> getMessagesFromUser(@Param("username") String username, @Param("otherUsername") String otherUsername);*/
 	
 	/*
 	* This method will retrieve all distinct tags available in all messages and write a query for the same.
 	* 
 	* */
-	@Query
-	public List<String> listAllTags();
+	/*@Query
+	public List<String> listAllTags();*/
 
 	/*
 	* This method will retrieve all tags which are subscribed by a specific user and write a query for the same.
 	* 
 	* */
-	@Query
-	public List<String> listMyTags(@Param("username") String username);
+	/*@Query
+	public List<String> listMyTags(@Param("username") String username);*/
 	
 	
 	/*
@@ -64,15 +67,15 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* matching the tag in method parameter among all messages and write a query for the same.
 	* 
 	* */
-	@Query
-	public List<Message> showMessagesWithTag(@Param("tag") String tag);
+	/*@Query
+	public List<Message> showMessagesWithTag(@Param("tag") String tag);*/
 	
 	
 	/*
 	* This method will retrieve an UserTag from UserTag table which matches the username
 	* and tag in parameter, write a query for the same.
 	* */
-	@Query
-	public UserTag getUserTag(@Param("username") String username, @Param("tag") String tag);
+	/*@Query
+	public UserTag getUserTag(@Param("username") String username, @Param("tag") String tag);*/
 	
 }

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,12 +33,12 @@ public class UserTest {
 	
 	@Before
 	public void setup() {
-		if (userService.get("john") != null) {
+		/*if (userService.get("john") != null) {
 			userService.delete(userService.get("john"));
 		}
 		if (userService.get("will") != null) {
 			userService.delete(userService.get("will"));
-		}
+		}*/
 		
 		User testUser = new User();
 		testUser.setName("John");
@@ -53,7 +54,7 @@ public class UserTest {
 
 	}
 
-	@After
+	/*@After
 	public void teardown() {
 		
 		if (userService.get("john") != null) {
@@ -65,7 +66,7 @@ public class UserTest {
 		if (userService.get("chris") != null) {
 			userService.delete(userService.get("chris"));
 		}
-	}
+	}*/
 
 	@Test
 	public void testCreateUser() {
@@ -75,7 +76,7 @@ public class UserTest {
 		user.setUsername("chris");
 		userService.save(user);
 		assertNotNull("Creating of user failed.", userService.get("chris"));
-		userService.delete(user);
+		//userService.delete(user);
 	}
 
 	@Test

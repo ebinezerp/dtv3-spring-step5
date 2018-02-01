@@ -17,7 +17,8 @@ import org.springframework.stereotype.Component;
  * Please note that you will have to use @Component annotation on this class if wish
  * to autowire the class from any other components of the application
  */
-
+@Component
+@Entity
 public class UserTag {
 	
 	/*
@@ -26,6 +27,47 @@ public class UserTag {
 	 * field userTagId should be the primary key and should be generated. This class 
 	 * should also contain the getters and setters for the fields. 
 	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long userTagId;
+	private String username;
+	private String tag;
+	
+	public UserTag(long userTagId, String username, String tag) {
+		super();
+		this.userTagId = userTagId;
+		this.username = username;
+		this.tag = tag;
+	}
+	
+	public UserTag()
+	{
+		
+	}
+
+	public long getUserTagId() {
+		return userTagId;
+	}
+
+	public void setUserTagId(long userTagId) {
+		this.userTagId = userTagId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	
 	
 

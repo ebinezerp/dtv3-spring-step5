@@ -2,12 +2,14 @@ package com.stackroute.activitystream.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.stackroute.activitystream.model.User;
 
 public interface UserService {
 	
 	/*Should not modify this interface.  You have to implement these methods in corresponding Impl class*/
-	
+
 	public boolean save(User user);
 
 	public boolean update(User user);

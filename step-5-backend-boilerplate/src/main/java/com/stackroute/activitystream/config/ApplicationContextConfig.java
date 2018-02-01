@@ -1,5 +1,10 @@
 package com.stackroute.activitystream.config;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 /*This class will contain the application-context for the application. 
  * Define the following annotations:
  * @Configuration - Annotating a class with the @Configuration indicates that the 
@@ -10,7 +15,10 @@ package com.stackroute.activitystream.config;
  * @EnableAspectJAutoProxy - This spring aop annotation is used to enable @AspectJ support with Java @Configuration                
  * 
  * */
-
+@Configuration
+@ComponentScan("com.stackroute.activitystream")
+@EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class ApplicationContextConfig {
 
 	/*

@@ -2,7 +2,13 @@ package com.stackroute.activitystream.serviceimpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.stackroute.activitystream.model.User;
+import com.stackroute.activitystream.repository.UserRepository;
 import com.stackroute.activitystream.service.UserService;
 
 /*
@@ -14,74 +20,134 @@ import com.stackroute.activitystream.service.UserService;
 * better. Additionally, tool support and additional behavior might rely on it in the 
 * future.
 * */
-public class UserServiceImpl implements UserService{
+@Service
+@Transactional
+public class UserServiceImpl implements UserService {
 
 	/*
-	 * Autowiring should be implemented for the UserRepository.
-	 *  Please note that we should not create any object using the new keyword.
-	 * */
-	
+	 * Autowiring should be implemented for the UserRepository. Please note that we
+	 * should not create any object using the new keyword.
+	 */
+	@Autowired
+	UserRepository userRepository;
 
 	/*
-	 * This method should be used to save a new user. Call the corresponding method of Respository interface.
+	 * This method should be used to save a new user. Call the corresponding method
+	 * of Respository interface.
 	 * 
 	 */
+	@Transactional
 	public boolean save(User user) {
 
-		return false;
+		try {
+
+			User returneduser = userRepository.save(user);
+
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+
+		}
 	}
 
 	/*
-	 * This method should be used to update an existing user. Call the corresponding method of Respository interface.
+	 * This method should be used to update an existing user. Call the corresponding
+	 * method of Respository interface.
 	 * 
 	 */
 	public boolean update(User user) {
 
-		return false;
+		try {
+			userRepository.save(user);
+			return true;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 
 	}
 
 	/*
-	 * This method should be used to delete an existing user. Call the corresponding method of Respository interface.
+	 * This method should be used to delete an existing user. Call the corresponding
+	 * method of Respository interface.
 	 * 
 	 */
 	public boolean delete(User user) {
 
-		return false;
+		try {
+			userRepository.delete(user);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 	}
 
 	/*
-	 * This method should be used to list all users. Call the corresponding method of Respository interface.
+	 * This method should be used to list all users. Call the corresponding method
+	 * of Respository interface.
 	 * 
 	 */
 	public List<User> list() {
-		return null;
+		try {
+		return (List<User>) userRepository.findAll();
+		}catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	/*
-	 * This method should be used to validate a user using password. Call the corresponding method of Respository interface.
+	 * This method should be used to validate a user using password. Call the
+	 * corresponding method of Respository interface.
 	 * 
 	 */
 	public boolean validate(String username, String password) {
 
-		return false;
+		try {
+			if(userRepository.validate(username, password)!=null)
+			{
+				return true;
+			}else
+			{
+				return false;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 	}
 
 	/*
-	 * This method should be used to get a user by username. Call the corresponding method of Respository interface.
+	 * This method should be used to get a user by username. Call the corresponding
+	 * method of Respository interface.
 	 */
 	public User get(String username) {
-		return null;
+
+		try {
+			return userRepository.findOne(username);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 
 	}
 
 	/*
-	 * This method is used to check whether a user with a specific username exists. Call the corresponding method of Respository interface.
+	 * This method is used to check whether a user with a specific username exists.
+	 * Call the corresponding method of Respository interface.
 	 */
 	public boolean exists(String username) {
 
-		return false;
+		try {
+		 return	userRepository.exists(username);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 
 	}
 }
-

@@ -18,7 +18,8 @@ import org.springframework.stereotype.Component;
  * Please note that you will have to use @Component annotation on this class if wish
  * to autowire the class from any other components of the application
  */
-
+@Entity
+@Component
 public class UserCircle {
 
 	/*
@@ -27,9 +28,50 @@ public class UserCircle {
 	 * field userCircleId should be the primary key and should be generated. This class 
 	 * should also contain the getters and setters for the fields. 
 	 */
+	@Id
+	private String userCircleId;
+	private String username;
+	private String circleName;
 	
-	public UserCircle(String string, String string2) {
+	
+	public UserCircle(String username, String circleName) {
 		// TODO Auto-generated constructor stub
+		this.username=username;
+		this.circleName=circleName;
+	}
+
+	public UserCircle()
+	{
+		
+	}
+
+	public String getUserCircleId() {
+		return userCircleId;
+	}
+
+
+	public void setUserCircleId(String userCircleId) {
+		this.userCircleId = userCircleId;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getCircleName() {
+		return circleName;
+	}
+
+
+	public void setCircleName(String circleName) {
+		this.circleName = circleName;
 	}
 
 	
