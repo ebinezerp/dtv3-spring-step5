@@ -1,6 +1,7 @@
 package com.stackroute.activitystream.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -96,8 +97,8 @@ public class Message {
 		return postedDate;
 	}
 
-	public void setPostedDate(Timestamp postedDate) {
-		this.postedDate = postedDate;
+	public void setPostedDate() {
+		this.postedDate = new Timestamp(new Date().getTime());
 	}
 
 	public String getStreamType() {

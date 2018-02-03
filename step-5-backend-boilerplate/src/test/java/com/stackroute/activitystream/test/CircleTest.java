@@ -1,6 +1,7 @@
 package com.stackroute.activitystream.test;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.transaction.Transactional;
 
@@ -73,7 +74,7 @@ public class CircleTest {
 
 	}
 
-	/*@Test
+	@Test
 	public void dummy() {
 
 	}
@@ -88,7 +89,7 @@ public class CircleTest {
 		assertNotNull("Creating of circle failed.", circleService.get("Angular"));
 		circleService.delete(circle);
 	}
-*/
+
 	@Test
 	public void testCreateCircleInvalidCreatorFailure() {
 
@@ -99,10 +100,12 @@ public class CircleTest {
 		circleService.delete(circle);
 	}
 
-	/*@Test public void testCreateCircleDuplicateFailure() {
+	@Test public void testCreateCircleDuplicateFailure() {
 	  
-	  circle.setCircleName("Java"); circle.setCreatedDate();
-	  circle.setCreatorId("john"); //circleService.save(circle);
+	  circle.setCircleName("Java"); 
+	  circle.setCreatedDate();
+	  circle.setCreatorId("john"); 
+	  circleService.save(circle);
 	  assertNotEquals("Creation of circle with the same name as of an existing circle successful", true, circleService.save(circle)); 
 	  circleService.delete(circle); 
 	  }
@@ -127,5 +130,5 @@ public class CircleTest {
 		assertNotNull("Retrieval of all circles containing a Search String unsuccessful",
 				circleService.getAllCircles("Spring"));
 	}
-*/
+
 }

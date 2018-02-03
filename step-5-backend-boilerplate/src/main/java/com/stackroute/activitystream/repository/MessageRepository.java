@@ -33,8 +33,8 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* 
 	* Write a query to retrieve all messages from database posted on specific circle.
 	* */
-	/*@Query
-	public List<Message> getMessagesFromCircle(@Param("circleName") String circleName);*/
+	@Query("From Message where circleName=:circleName")
+	public List<Message> getMessagesFromCircle(@Param("circleName") String circleName);
 	
 	
 	/*
@@ -44,22 +44,22 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* 
 	* Write a query to retrieve all messages from the database send between two specified users. 
 	* */
-	/*@Query
-	public List<Message> getMessagesFromUser(@Param("username") String username, @Param("otherUsername") String otherUsername);*/
+	@Query("From Message where senderName=:username and receiverId=:otherUsername")
+	public List<Message> getMessagesFromUser(@Param("username") String username, @Param("otherUsername") String otherUsername);
 	
 	/*
 	* This method will retrieve all distinct tags available in all messages and write a query for the same.
 	* 
 	* */
-	/*@Query
-	public List<String> listAllTags();*/
+	@Query("Select tag from Message")
+	public List<String> listAllTags();
 
 	/*
 	* This method will retrieve all tags which are subscribed by a specific user and write a query for the same.
 	* 
 	* */
-	/*@Query
-	public List<String> listMyTags(@Param("username") String username);*/
+	@Query("Select tag from Message where senderName=:username")
+	public List<String> listMyTags(@Param("username") String username);
 	
 	
 	/*
@@ -67,15 +67,15 @@ public interface MessageRepository extends CrudRepository<Message, Integer>{
 	* matching the tag in method parameter among all messages and write a query for the same.
 	* 
 	* */
-	/*@Query
-	public List<Message> showMessagesWithTag(@Param("tag") String tag);*/
+	@Query("From Message where tag=:tag")
+	public List<Message> showMessagesWithTag(@Param("tag") String tag);
 	
 	
 	/*
 	* This method will retrieve an UserTag from UserTag table which matches the username
 	* and tag in parameter, write a query for the same.
 	* */
-	/*@Query
-	public UserTag getUserTag(@Param("username") String username, @Param("tag") String tag);*/
+	@Query("From UserTag where username=:username and tag=:tag")
+	public UserTag getUserTag(@Param("username") String username, @Param("tag") String tag);
 	
 }

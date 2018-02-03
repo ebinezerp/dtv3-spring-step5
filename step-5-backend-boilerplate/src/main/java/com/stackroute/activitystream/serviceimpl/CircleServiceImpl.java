@@ -42,8 +42,7 @@ public class CircleServiceImpl implements CircleService {
 	public boolean save(Circle circle) {
 
 		try {
-			if (circleRepository.findOne(circle.getCircleName()) != null
-					&& userRepository.findOne(circle.getCreatorId()) != null) {
+			if (circleRepository.findOne(circle.getCircleName()) == null && userRepository.findOne(circle.getCreatorId()) != null) {
 				circleRepository.save(circle);
 				return true;
 			} else {

@@ -2,7 +2,18 @@ package com.stackroute.activitystream.serviceimpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.stackroute.activitystream.model.Message;
+import com.stackroute.activitystream.model.UserTag;
+import com.stackroute.activitystream.repository.CircleRepository;
+import com.stackroute.activitystream.repository.MessageRepository;
+import com.stackroute.activitystream.repository.UserCircleRepository;
+import com.stackroute.activitystream.repository.UserRepository;
+import com.stackroute.activitystream.repository.UserTagRepository;
 import com.stackroute.activitystream.service.MessageService;
 
 /*
@@ -14,6 +25,8 @@ import com.stackroute.activitystream.service.MessageService;
 * better. Additionally, tool support and additional behavior might rely on it in the 
 * future.
 * */
+@Service("messageeService")
+@Transactional
 public class MessageServiceImpl implements MessageService{
 	
 	/*
@@ -22,13 +35,44 @@ public class MessageServiceImpl implements MessageService{
 	 *  Please note that we should not create any object using the new keyword
 	 * */
 	
+	  @Autowired
+	  UserRepository userRepository;
+	  
+	  @Autowired
+	  CircleRepository circleRepository;
+	  
+	  @Autowired
+	  UserCircleRepository userCircleRepository;
+	  
+	  
+	  @Autowired
+	  MessageRepository messageRepository;
+	  
+	  @Autowired
+	  UserTagRepository userTagRepository;
+	  
+	  
+	  @Autowired
+	  UserTag userTag;
 	
 	/*
 	 * This method should be used to get all messages from a specific circle. Call the corresponding method of Respository interface.
 	 * */
 	public List<Message> getMessagesFromCircle(String circleName,int pageNumber) {
 		
-		return null;
+		try
+		{
+			if(circleRepository.getOne(circleName)!=null)
+			{
+			 return	messageRepository.getMessagesFromCircle(circleName).subList((pageNumber-1)*10,((pageNumber-1)*10)+10);
+			}else
+			{
+				return null;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 	
 	/*
@@ -37,7 +81,19 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public List<Message> getMessagesFromUser(String username,String otherUsername,int pageNumber) {
 		
-		return null; 
+		try
+		{
+			if(userRepository.findOne(username)!=null && userRepository.findOne(otherUsername)!=null)
+			{
+				return messageRepository.getMessagesFromUser(username, otherUsername).subList((pageNumber-1)*10,((pageNumber-1)*10)+10);
+			}else
+			{
+				return null;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 	
 	/*
@@ -46,7 +102,20 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public boolean sendMessageToCircle(String circleName,Message message) {
 		
-		return false;
+		try
+		{
+		   if(circleRepository.findOne(circleName)!=null)
+		   {
+			   messageRepository.save(message);
+			   return true;
+		   }else
+		   {
+			   return false;
+		   }
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 	}
 	
 	
@@ -56,16 +125,36 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public boolean sendMessageToUser(String username,Message message) {
 		
-		return false;
+		try
+		{
+		   if(userRepository.findOne(username)!=null && userRepository.findOne(message.getReceiverId())!=null)
+		   {
+			   messageRepository.save(message);
+			   return true;
+		   }else
+		   {
+			   return false;
+		   }
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 		
 	} 	
 	
 	/*
 	 * This method should be used to list out all tags from all existing messages. Call the corresponding method of Respository interface.
 	 */
+	
 	public List<String> listTags() {
 		
-		return null;
+		try
+		{
+			return messageRepository.listAllTags();
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 		
 	}
 	
@@ -75,7 +164,14 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public List<String> listMyTags(String username) {
 		
-		return null;
+		try
+		{
+			return messageRepository.listMyTags(username);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 	
 	/*
@@ -84,7 +180,14 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public List<Message> showMessagesWithTag(String tag,int pageNumber) {
 		
-		return null;
+		try
+		{
+		return messageRepository.showMessagesWithTag(tag).subList((pageNumber-1)*10,((pageNumber-1)*10)+10);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 	
 	/*
@@ -92,7 +195,28 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public boolean subscribeUserToTag(String username, String tag) {
 		
-		return false;
+		try
+		{
+			if(userRepository.findOne(username)!=null)
+			{
+				if(userTagRepository.getUserTag(username, tag)==null)
+				{
+					userTag.setTag(tag);
+					userTag.setUsername(username);
+					userTagRepository.save(userTag);
+					return true;
+				}else
+				{
+					return false;
+				}
+			}else
+			{
+				return false;
+			}
+		}catch(Exception e)
+		{
+			return false;
+		}
 	}
 	
 	/*
@@ -100,7 +224,26 @@ public class MessageServiceImpl implements MessageService{
 	 */
 	public boolean unsubscribeUserToTag(String username, String tag) {
 	
-		return false;
+		try
+		{
+			if(userRepository.findOne(username)!=null)
+			{
+				if(userTagRepository.getUserTag(username, tag)!=null)
+				{
+					userTagRepository.delete(userTagRepository.getUserTag(username, tag));
+					return true;
+				}else
+				{
+					return false;
+				}
+			}else
+			{
+				return false;
+			}
+		}catch(Exception e)
+		{
+			return false;
+		}
 	}
 
 }
