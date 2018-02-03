@@ -55,6 +55,12 @@ public class UserCircleTest {
 		if (circleRepository.findOne("Java") != null) {
 			circleRepository.delete(circleRepository.findOne("Java"));
 		}
+		
+		if(userCircleRepository.getUsernameAndCircleName("john", "Java")!=null)
+		{
+			userCircleRepository.delete(userCircleRepository.getUsernameAndCircleName("john", "Java"));
+		}
+		
 		User testUser = new User();
 		testUser.setName("John");
 		testUser.setPassword("password");
@@ -78,12 +84,17 @@ public class UserCircleTest {
 		if (circleRepository.findOne("Java") != null) {
 			circleRepository.delete(circleRepository.findOne("Java"));
 		}
+		if(userCircleRepository.getUsernameAndCircleName("john", "Java")!=null)
+		{
+			userCircleRepository.delete(userCircleRepository.getUsernameAndCircleName("john", "Java"));
+		}
 	}
 
 	@Test
 	public void testAddUserToCircle() {
 		
 		assertEquals("Adding user to circle failed",true,userCircleService.addUser("john","Java"));
+		
 		
 	}
 	

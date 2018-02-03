@@ -2,7 +2,13 @@ package com.stackroute.activitystream.serviceimpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.stackroute.activitystream.model.UserCircle;
+import com.stackroute.activitystream.repository.CircleRepository;
+import com.stackroute.activitystream.repository.UserCircleRepository;
+import com.stackroute.activitystream.repository.UserRepository;
 import com.stackroute.activitystream.service.UserCircleService;
 
 
@@ -15,6 +21,7 @@ import com.stackroute.activitystream.service.UserCircleService;
 * better. Additionally, tool support and additional behavior might rely on it in the 
 * future.
 * */
+@Service
 public class UserCircleServiceImpl implements UserCircleService{
 	
 	
@@ -24,6 +31,18 @@ public class UserCircleServiceImpl implements UserCircleService{
 	 *  Please note that we should not create any object using the new keyword
 	 * */
 	
+	   @Autowired
+	   private UserCircleRepository userCircleRepository;
+	   
+	   @Autowired
+	   private CircleRepository circleRepository;
+	   
+	   @Autowired
+	   private UserRepository userRepository;
+	   
+	   
+	   @Autowired
+	   private UserCircle userCircle;
 	/*
 	 * This method should be used to add a user to a specific circle. You need to validate
 	 * whether the user and also the circle exist. Also, please check if the user is already
@@ -32,7 +51,23 @@ public class UserCircleServiceImpl implements UserCircleService{
 	 */
 	public boolean addUser(String username, String circleName) {
 
-		return false;
+		if(userRepository.findOne(username)!=null && circleRepository.findOne(circleName)!=null)
+		{
+		if(userCircleRepository.getUsernameAndCircleName(username, circleName)==null)
+		{
+			userCircle.setCircleName(circleName);
+			userCircle.setUsername(username);
+			userCircleRepository.save(userCircle);
+			return true;
+		}else
+		{
+			return false;
+		}
+		}else
+		{
+			return false;
+		}
+			
 	}
 	
 	
@@ -43,7 +78,15 @@ public class UserCircleServiceImpl implements UserCircleService{
 	 */
 	public boolean removeUser(String username, String circleName) {
 
-		return false;
+		if(userCircleRepository.getUsernameAndCircleName(username, circleName)!=null)
+		{
+			UserCircle userCircle=userCircleRepository.getUsernameAndCircleName(username, circleName);
+			userCircleRepository.delete(userCircle);
+			return true;
+		}else
+		{
+			return false;
+		}
 	}
 	
 	
@@ -53,7 +96,19 @@ public class UserCircleServiceImpl implements UserCircleService{
 	 */
 	public List<String> getMyCircles(String username){
 		
-		return null;
+		try
+		{
+			if(userRepository.findOne(username)!=null)
+			{
+				return userCircleRepository.findCircleNameByUserName(username);
+			}else
+			{
+				return null;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 	
 	/*
@@ -63,7 +118,19 @@ public class UserCircleServiceImpl implements UserCircleService{
 	 */
 	public UserCircle get(String username, String circleName) {
 		
-		return null;
+		try
+		{
+			if(userRepository.findOne(username)!=null && circleRepository.findOne(circleName)!=null)
+			{
+				return userCircleRepository.getUsernameAndCircleName(username, circleName);
+			}else
+			{
+			   return null;	
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 
 }

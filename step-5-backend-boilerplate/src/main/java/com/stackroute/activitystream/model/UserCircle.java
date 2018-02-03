@@ -29,7 +29,8 @@ public class UserCircle {
 	 * should also contain the getters and setters for the fields. 
 	 */
 	@Id
-	private String userCircleId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long userCircleId;
 	private String username;
 	private String circleName;
 	
@@ -45,15 +46,15 @@ public class UserCircle {
 		
 	}
 
-	public String getUserCircleId() {
+	
+
+	public long getUserCircleId() {
 		return userCircleId;
 	}
 
-
-	public void setUserCircleId(String userCircleId) {
+	public void setUserCircleId(long userCircleId) {
 		this.userCircleId = userCircleId;
 	}
-
 
 	public String getUsername() {
 		return username;
