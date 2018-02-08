@@ -160,9 +160,9 @@ public class UserAuthControllerTest {
     }
 	
 	
-    /*
-     * converts a Java object into JSON representation
-     */
+    
+     /* converts a Java object into JSON representation*/
+     
      
     public static String asJsonString(final Object obj) {
         try {

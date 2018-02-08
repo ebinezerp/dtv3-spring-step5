@@ -20,7 +20,7 @@
 			<artifactId>ActivityStream-step5-backend-boilerplate</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- Dependency for javax.servlet-api  -->
+		<!-- Dependency for javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -53,7 +53,13 @@
 		</dependency>
 
 		<!-- Dependency for jayway-jsonpath -->
-		
+		<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>

@@ -1,4 +1,10 @@
 package com.stackroute.activitystream.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 /*This class will contain the application-context for the application. 
  * Define the following annotations:
  * @Configuration - Annotating a class with the @Configuration indicates that the 
@@ -10,6 +16,10 @@ package com.stackroute.activitystream.config;
  * 				   configuration from WebMvcConfigurationSupport              
  * 
  * */
+@Configuration
+@ComponentScan("com.stackroute.activitystream")
+@EnableWebMvc
+@EnableTransactionManagement
 public class ApplicationContextConfig {
 
 }

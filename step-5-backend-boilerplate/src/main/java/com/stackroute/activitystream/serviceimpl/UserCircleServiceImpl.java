@@ -53,16 +53,16 @@ public class UserCircleServiceImpl implements UserCircleService{
 
 		if(userRepository.findOne(username)!=null && circleRepository.findOne(circleName)!=null)
 		{
-		if(userCircleRepository.getUsernameAndCircleName(username, circleName)==null)
-		{
+		/*if(userCircleRepository.getUsernameAndCircleName(username, circleName)==null)
+		{*/
 			userCircle.setCircleName(circleName);
 			userCircle.setUsername(username);
 			userCircleRepository.save(userCircle);
 			return true;
-		}else
+		/*}else
 		{
 			return false;
-		}
+		}*/
 		}else
 		{
 			return false;

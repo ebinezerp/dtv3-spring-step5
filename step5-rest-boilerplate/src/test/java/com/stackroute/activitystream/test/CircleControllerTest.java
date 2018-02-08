@@ -90,7 +90,7 @@ public class CircleControllerTest {
 			
 	}
 	
-	@Test
+	/*@Test
     public void testCreateCircle() throws Exception {
 		
 		User user=new User("john","","password");
@@ -125,7 +125,7 @@ public class CircleControllerTest {
         verify(circleService, times(1)).save((Circle)any());
         verify(circleService, times(1)).get(anyString());
     }
-	
+	*/
 	
 	@Test
     public void testCreateDuplicateCircleFailure() throws Exception {
